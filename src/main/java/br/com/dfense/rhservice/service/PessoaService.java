@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -27,13 +28,39 @@ public class PessoaService {
     }
 
     public DtoResponsePessoa getPessoaById(Long id){
-        Optional<Pessoa> byId = pessoaRepository.findById(id);
-        if (byId.isPresent()){
-            DtoResponsePessoa pessoa = new DtoResponsePessoa(byId.get());
-            return pessoa;
-        }else{
-            throw new RuntimeException("Pessoa com id: "+id+", inexistente");
+        Pessoa pessoa = pessoaRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Pessoa não encontrada com o ID: " + id));
+            DtoResponsePessoa pessoaDto = new DtoResponsePessoa(pessoa);
+            return pessoaDto;
+
+
+
+}
+
+    public void atualizaPessoa(Long id, DtoRequestPessoa dados){
+
+
+        Pessoa pessoa = pessoaRepository.findById(id)
+                .orElseThrow(()-> new NoSuchElementException("Pessoa com este ID não existe"));
+        if (!(dados.nome().isEmpty() || dados.nome().isBlank())){
+            pessoa.setNome(dados.nome());
+
+        }
+        if(!(dados.email().isBlank() || dados.email().isEmpty())){
+            pessoa.setEmail(dados.email());
+        }
+        if(!(dados.dataNascimento().isBlank() || dados.dataNascimento().isEmpty())){
+            pessoa.setDataNascimento(dados.dataNascimento());
+        }
+        if(!(dados.cpf().isBlank() || dados.cpf().isEmpty())){
+            pessoa.setCpf(dados.cpf());
         }
 
+        pessoaRepository.save(pessoa);
 
-}}
+    }
+
+
+
+
+}

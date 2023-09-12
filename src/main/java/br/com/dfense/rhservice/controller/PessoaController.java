@@ -27,4 +27,10 @@ public class PessoaController {
         service.cadastrarPessoa(dados);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity atualizarUsuario(@PathVariable("id")Long id, @RequestBody DtoRequestPessoa dados){
+        service.atualizaPessoa(id, dados);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }

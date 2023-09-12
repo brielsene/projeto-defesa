@@ -3,6 +3,6 @@ CREATE TABLE PESSOAS(
     nome varchar,
     email varchar,
     data_nascimento varchar,
-    private varchar cpf
+    cpf varchar
 
 );

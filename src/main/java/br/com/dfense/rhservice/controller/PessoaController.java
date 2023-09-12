@@ -4,6 +4,7 @@ import br.com.dfense.rhservice.domain.dto.DtoRequestPessoa;
 import br.com.dfense.rhservice.domain.dto.DtoResponsePessoa;
 import br.com.dfense.rhservice.service.PessoaService;
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,12 @@ public class PessoaController {
         return ResponseEntity.status(HttpStatus.OK).body(service.getAllPessoas());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<DtoResponsePessoa>getUsuarioById(@PathVariable("id")Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(service.getPessoaById(id));
+    }
+
+
     @PostMapping
     public ResponseEntity criarUsuario(@RequestBody @Valid DtoRequestPessoa dados){
         service.cadastrarPessoa(dados);
@@ -32,5 +39,11 @@ public class PessoaController {
     public ResponseEntity atualizarUsuario(@PathVariable("id")Long id, @RequestBody DtoRequestPessoa dados){
         service.atualizaPessoa(id, dados);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deletarUsuario(@PathVariable("id")Long id){
+        service.deletarPessoa(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

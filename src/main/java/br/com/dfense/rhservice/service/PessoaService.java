@@ -61,6 +61,11 @@ public class PessoaService {
     }
 
 
+    public void deletarPessoa(Long id){
+        Pessoa pessoa = pessoaRepository.findById(id)
+                        .orElseThrow(()-> new NoSuchElementException("Não existe pessoa com o id: "+id));
+        pessoaRepository.deleteById(id);
+    }
 
 
 }

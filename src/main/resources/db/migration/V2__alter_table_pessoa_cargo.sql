@@ -1,0 +1,2 @@
+
+ALTER TABLE PESSOAS ADD COLUMN cargos cargo;

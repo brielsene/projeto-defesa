@@ -1,5 +1,6 @@
 package br.com.dfense.rhservice.domain.dto;
 
+import br.com.dfense.rhservice.domain.Cargo;
 import jakarta.validation.constraints.*;
 
 public record DtoRequestPessoa(
@@ -24,5 +25,9 @@ public record DtoRequestPessoa(
         String dataNascimento,
 
         @Size(max = 11, min = 11)
-        String cpf) {
+        String cpf,
+
+
+        Cargo cargo
+        ) {
 }

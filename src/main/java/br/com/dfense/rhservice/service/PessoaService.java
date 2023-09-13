@@ -18,7 +18,7 @@ public class PessoaService {
     private PessoaRepository pessoaRepository;
 
     public void cadastrarPessoa(DtoRequestPessoa dados){
-        Pessoa pessoa = new Pessoa(null, dados.nome(), dados.email(), dados.dataNascimento(), dados.cpf());
+        Pessoa pessoa = new Pessoa(null, dados.nome(), dados.email(), dados.dataNascimento(), dados.cpf(), dados.cargo());
         pessoaRepository.save(pessoa);
 
     }

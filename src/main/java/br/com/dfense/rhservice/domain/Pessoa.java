@@ -22,4 +22,6 @@ public class Pessoa {
     @Column(name = "data_nascimento")
     private String dataNascimento;
     private String cpf;
+    @Enumerated(EnumType.STRING)
+    private Cargo cargo;
 }
